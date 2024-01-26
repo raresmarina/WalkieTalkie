@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		209E6F75E85C03E73F5B4CF1 /* libPods-WalkieTalkie.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C79CDE81A19FA7D4C5C86A75 /* libPods-WalkieTalkie.a */; };
 		4F0F1EED2B626DC0009647B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F1EEC2B626DC0009647B1 /* AppDelegate.swift */; };
 		4F0F1EEF2B626DC0009647B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F1EEE2B626DC0009647B1 /* SceneDelegate.swift */; };
 		4F0F1EF12B626DC0009647B1 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F1EF02B626DC0009647B1 /* ConversationsViewController.swift */; };
@@ -20,6 +21,7 @@
 		4F0F1F0F2B6274FC009647B1 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F1F0E2B6274FC009647B1 /* NewConversationViewController.swift */; };
 		4F0F1F112B627510009647B1 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F1F102B627510009647B1 /* ProfileViewController.swift */; };
 		4F0F1F142B627AE8009647B1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0F1F132B627AE8009647B1 /* Extensions.swift */; };
+		4F817BC32B63DA9A00D3DF5D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F817BC22B63DA9A00D3DF5D /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,10 @@
 		4F0F1F0E2B6274FC009647B1 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		4F0F1F102B627510009647B1 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		4F0F1F132B627AE8009647B1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4F817BC22B63DA9A00D3DF5D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		57CFF53BB8937FC91ADDC948 /* Pods-WalkieTalkie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.debug.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.debug.xcconfig"; sourceTree = "<group>"; };
+		78F1CD499361D76DF9F4FA06 /* Pods-WalkieTalkie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.release.xcconfig"; sourceTree = "<group>"; };
+		C79CDE81A19FA7D4C5C86A75 /* libPods-WalkieTalkie.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WalkieTalkie.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				209E6F75E85C03E73F5B4CF1 /* libPods-WalkieTalkie.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +63,8 @@
 			children = (
 				4F0F1EEB2B626DC0009647B1 /* WalkieTalkie */,
 				4F0F1EEA2B626DC0009647B1 /* Products */,
+				E97573321F13EA1EC606DDA7 /* Pods */,
+				C1235B47ABC048E35447378E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +79,7 @@
 		4F0F1EEB2B626DC0009647B1 /* WalkieTalkie */ = {
 			isa = PBXGroup;
 			children = (
+				4F817BC22B63DA9A00D3DF5D /* GoogleService-Info.plist */,
 				4F0F1F042B626EAD009647B1 /* Resources */,
 				4F0F1F032B626E9E009647B1 /* ViewModels */,
 				4F0F1F022B626E97009647B1 /* Models */,
@@ -144,6 +154,23 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		C1235B47ABC048E35447378E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C79CDE81A19FA7D4C5C86A75 /* libPods-WalkieTalkie.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E97573321F13EA1EC606DDA7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				57CFF53BB8937FC91ADDC948 /* Pods-WalkieTalkie.debug.xcconfig */,
+				78F1CD499361D76DF9F4FA06 /* Pods-WalkieTalkie.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -151,6 +178,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4F0F1EFD2B626DC1009647B1 /* Build configuration list for PBXNativeTarget "WalkieTalkie" */;
 			buildPhases = (
+				93E87D76F3750918DD6E36F8 /* [CP] Check Pods Manifest.lock */,
 				4F0F1EE52B626DC0009647B1 /* Sources */,
 				4F0F1EE62B626DC0009647B1 /* Frameworks */,
 				4F0F1EE72B626DC0009647B1 /* Resources */,
@@ -203,12 +231,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F0F1EF92B626DC1009647B1 /* LaunchScreen.storyboard in Resources */,
+				4F817BC32B63DA9A00D3DF5D /* GoogleService-Info.plist in Resources */,
 				4F0F1EF62B626DC1009647B1 /* Assets.xcassets in Resources */,
 				4F0F1EF42B626DC0009647B1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		93E87D76F3750918DD6E36F8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WalkieTalkie-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4F0F1EE52B626DC0009647B1 /* Sources */ = {
@@ -366,6 +420,7 @@
 		};
 		4F0F1EFE2B626DC1009647B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57CFF53BB8937FC91ADDC948 /* Pods-WalkieTalkie.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -373,6 +428,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to select a photo for your profile";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -393,6 +452,7 @@
 		};
 		4F0F1EFF2B626DC1009647B1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78F1CD499361D76DF9F4FA06 /* Pods-WalkieTalkie.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -400,6 +460,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to select a photo for your profile";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
