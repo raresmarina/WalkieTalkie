@@ -14,7 +14,6 @@ pod 'SDWebImage'
 pod 'MessageKit', '3.1.0'
 pod 'InputBarAccessoryView'
 pod 'RealmSwift'
-
-
+pod 'FirebaseStorage'
  
 end
