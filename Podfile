@@ -1,5 +1,6 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
+# use_frameworks!
 
 use_modular_headers!
 target 'WalkieTalkie' do
@@ -14,6 +15,6 @@ pod 'SDWebImage'
 pod 'MessageKit', '3.1.0'
 pod 'InputBarAccessoryView'
 pod 'RealmSwift'
-pod 'FirebaseStorage'
- 
+pod 'FirebaseStorage', '3.6.1'
+
 end
