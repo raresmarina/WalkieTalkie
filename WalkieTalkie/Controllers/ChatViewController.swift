@@ -10,6 +10,8 @@ import MessageKit
 import InputBarAccessoryView
 import CoreMedia
 import SDWebImage
+import AVFoundation
+import AVKit
 
 struct Message: MessageType{
     public var sender: MessageKit.SenderType
@@ -131,7 +133,7 @@ class ChatViewController: MessagesViewController {
             self?.presentPhotoInputActionsheet()
         }))
         actionSheet.addAction(UIAlertAction(title: "Video", style: .default, handler: { [weak self] _ in
-            
+            self?.presentVideoInputActionsheet()
         }))
         actionSheet.addAction(UIAlertAction(title: "Audio", style: .default, handler: { [weak self] _ in
             
@@ -143,7 +145,7 @@ class ChatViewController: MessagesViewController {
     }
     
     private func presentPhotoInputActionsheet(){
-        let actionSheet = UIAlertController(title: "Attach Me",
+        let actionSheet = UIAlertController(title: "Attach photo",
                                             message: "From?",
                                             preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
@@ -164,7 +166,32 @@ class ChatViewController: MessagesViewController {
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(actionSheet, animated: true)
     }
-    
+    private func presentVideoInputActionsheet(){
+        let actionSheet = UIAlertController(title: "Attach video",
+                                            message: "From?",
+                                            preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+            let picker = UIImagePickerController()
+            picker.sourceType = .camera
+            picker.delegate = self
+            picker.videoQuality = .typeMedium
+            picker.mediaTypes = ["public.movie"]
+            picker.allowsEditing = true
+            self?.present(picker,animated: true)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Galery", style: .default, handler: { [weak self] _ in
+            let picker = UIImagePickerController()
+            picker.sourceType = .photoLibrary
+            picker.delegate = self
+            picker.videoQuality = .typeMedium
+            picker.mediaTypes = ["public.movie"]
+            picker.allowsEditing = true
+            self?.present(picker,animated: true)
+        }))
+
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(actionSheet, animated: true)
+    }
     
     
     private func listenForMessage(id: String, shouldScrollToBottom: Bool) {
@@ -207,55 +234,96 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
-        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage,
-        let imageData = image.pngData() ,
-        let conversationId = conversationId,
+        guard let conversationId = conversationId,
         let name = self.title,
         let selfSender = selfSender,
         let messageId = createMessageId() else {
-            
             return
         }
-        
-        let fileName = "photo_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".png"
-        
-        StorageManager.shared.uploadMessagePhoto(with: imageData, fileName: fileName, completion: { [weak self] result in
-            guard let strongSelf = self else {return}
+        if let image = info[.editedImage] as? UIImage, let imageData = image.pngData() {
+            let fileName = "photo_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".png"
             
-            switch result {
-            case .success(let urlString):
-                //send  message
-                print("uploaded message photo")
+            StorageManager.shared.uploadMessagePhoto(with: imageData, fileName: fileName, completion: { [weak self] result in
+                guard let strongSelf = self else {return}
                 
-                guard let url = URL(string: urlString),
-                      let placeholder = UIImage(systemName: "plus") else {
-                    return
-                }
-                
-                let media = Media(url: url,
-                                  image: nil,
-                                  placeholderImage: placeholder,
-                                  size: .zero)
-                
-                let message = Message(sender: selfSender,
-                                      messageId: messageId,
-                                      sentDate: Date(),
-                                      kind: .photo(media))
-                
-                DatabaseManager.shared.sendMessage(to: conversationId, otherUserEmail: strongSelf.otherUserEmail, name: name, newMessage: message, completion: { success in
+                switch result {
+                case .success(let urlString):
+                    //send  message
+                    print("uploaded message photo")
                     
-                    if success {
-                        print("ok")
+                    guard let url = URL(string: urlString),
+                          let placeholder = UIImage(systemName: "plus") else {
+                        return
+                    }
+                    
+                    let media = Media(url: url,
+                                      image: nil,
+                                      placeholderImage: placeholder,
+                                      size: .zero)
+                    
+                    let message = Message(sender: selfSender,
+                                          messageId: messageId,
+                                          sentDate: Date(),
+                                          kind: .photo(media))
+                    
+                    DatabaseManager.shared.sendMessage(to: conversationId, otherUserEmail: strongSelf.otherUserEmail, name: name, newMessage: message, completion: { success in
                         
+                        if success {
+                            print("ok")
+                            
+                        }
+                        else{
+                            print("failed to send photo message")
+                        }
+                    })
+                case .failure(let error):
+                    print("message photo upload error: \(error)")
+                }
+            })
+        }
+        else if let videoUrl = info[.mediaURL] as? URL {
+            let fileName = "photo_message_" + messageId.replacingOccurrences(of: " ", with: "-") + ".mov"
+            
+            // Upload Video
+            
+            StorageManager.shared.uploadMessageVideo(with: videoUrl, fileName: fileName, completion: { [weak self] result in
+                guard let strongSelf = self else {return}
+                
+                switch result {
+                case .success(let urlString):
+                    //send  message
+                    print("uploaded message video")
+                    
+                    guard let url = URL(string: urlString),
+                          let placeholder = UIImage(systemName: "plus") else {
+                        return
                     }
-                    else{
-                        print("failed to send photo message")
-                    }
-                })
-            case .failure(let error):
-                print("message photo upload error: \(error)")
-            }
-        })
+                    
+                    let media = Media(url: url,
+                                      image: nil,
+                                      placeholderImage: placeholder,
+                                      size: .zero)
+                    
+                    let message = Message(sender: selfSender,
+                                          messageId: messageId,
+                                          sentDate: Date(),
+                                          kind: .video(media))
+                    
+                    DatabaseManager.shared.sendMessage(to: conversationId, otherUserEmail: strongSelf.otherUserEmail, name: name, newMessage: message, completion: { success in
+                        
+                        if success {
+                            print("ok")
+                            
+                        }
+                        else{
+                            print("failed to send photo message")
+                        }
+                    })
+                case .failure(let error):
+                    print("message photo upload error: \(error)")
+                }
+            })
+        }
     }
 }
 
@@ -367,6 +435,15 @@ extension ChatViewController: MessageCellDelegate{
             }
             let vc = PhotoViewerViewController(with: imageUrl)
             self.navigationController?.pushViewController(vc, animated: true)
+        case .video(let media):
+            guard let videoUrl = media.url else {
+                return
+            }
+            
+            let vc = AVPlayerViewController()
+            vc.player = AVPlayer(url: videoUrl)
+            present(vc, animated: true)
+            
         default:
             break
         }

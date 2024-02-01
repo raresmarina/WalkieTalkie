@@ -483,6 +483,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Please allow access to microphone";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to select a photo for your profile";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -515,6 +516,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Please allow access to microphone";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow access to select a photo for your profile";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
