@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MessageKit
 import FirebaseDatabase
 
 final class DatabaseManager {
@@ -20,6 +21,19 @@ final class DatabaseManager {
     }
     
     
+}
+
+extension DatabaseManager{
+    
+    public func getDataFor(path: String, completion: @escaping (Result<Any, Error>) -> Void){
+        self.database.child("\(path)").observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value else {
+                completion(.failure(DatabaseError.failedToFetch))
+                return
+            }
+            completion(.success(value))
+        }
+    }
 }
 
 //MARK: - Account
@@ -261,7 +275,6 @@ extension DatabaseManager {
             "sender_email": currentUserEmail,
             "is_read": false,
             "name": name
-            
         ]
         
         let value: [String: Any] = [
@@ -329,7 +342,28 @@ extension DatabaseManager {
                       let senderEmail = dictionary["sender_email"] as? String,
                       let type = dictionary["type"] as? String,
                       let dateString = dictionary["date"] as? String,
-                      let date = ChatViewController.dateFormatter.date(from: dateString) else {
+                      let date = ChatViewController.dateFormatter.date(from: dateString)
+                else {
+                    return nil
+                }
+                
+                var kind: MessageKind?
+                
+                if type == "photo" {
+                    guard let imageUrl = URL(string: content),
+                           let placeHolder = UIImage(systemName: "plus") else {
+                        return nil
+                    }
+                    let media = Media(url: imageUrl,
+                                      image: nil,
+                                      placeholderImage: placeHolder,
+                                      size: CGSize(width: 300, height: 300))
+                    kind = .photo(media)
+                }
+                else {
+                    kind = .text(content)
+                }
+                guard let finalKind = kind else {
                     return nil
                 }
                 
@@ -340,15 +374,88 @@ extension DatabaseManager {
                 return Message(sender: sender,
                                messageId: messageId,
                                sentDate: date,
-                               kind: .text(content))
+                               kind: finalKind)
             })
             completion(.success(messages))
         })
         
     }
     ///sends a message to a conversation
-    public func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void){
+    public func sendMessage(to conversation: String, otherUserEmail: String, name: String, newMessage: Message, completion: @escaping (Bool) -> Void){
+        //add new message
+        //update sender latest message
+        //update recipient latest message
         
+        guard let myEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+            completion(false)
+            return
+        }
+        
+        let currentEmail = DatabaseManager.safeEmail(emailAddress: myEmail)
+        
+        database.child("\(conversation)/messages").observeSingleEvent(of: .value, with: { [weak self] snapshot in
+            guard let strongSelf = self else {
+                return
+            }
+            guard var currentMessages = snapshot.value as? [[String: Any]] else {
+                completion(false)
+                return
+            }
+            let messageDate = newMessage.sentDate
+            let dateString = ChatViewController.dateFormatter.string(from: messageDate)
+            
+            var message = ""
+            switch newMessage.kind{
+            case .text(let messageText):
+                message = messageText
+            case .attributedText(_):
+                break
+            case .photo(let mediaItem):
+                if let targetUrlString = mediaItem.url?.absoluteString{
+                    message = targetUrlString
+                }
+                break
+            case .video(_):
+                break
+            case .location(_):
+                break
+            case .emoji(_):
+                break
+            case .audio(_):
+                break
+            case .contact(_):
+                break
+            case .custom(_):
+                break
+            }
+            guard let myEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+                completion(false)
+                return
+            }
+            let currentUserEmail = DatabaseManager.safeEmail(emailAddress: myEmail)
+            
+            let newMessageEntry: [String: Any] = [
+                "id": newMessage.messageId,
+                "type": newMessage.kind.messageKindString,
+                "content": message,
+                "date": dateString,
+                "sender_email": currentUserEmail,
+                "is_read": false,
+                "name": name
+            ]
+            currentMessages.append(newMessageEntry)
+            
+            strongSelf.database.child("\(conversation)/messages").setValue(currentMessages, withCompletionBlock: { error, _ in
+                guard error == nil else {
+                    completion(false)
+                    return
+                }
+                
+                
+                
+                completion(true)
+            })
+        })
     }
 }
 
