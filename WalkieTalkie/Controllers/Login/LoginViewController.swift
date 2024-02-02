@@ -69,7 +69,7 @@ class LoginViewController: UIViewController {
         button.setTitle("Log In", for: .normal)
         button.backgroundColor = .link
         button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = 10
         button.layer.masksToBounds = true
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         return button
@@ -78,7 +78,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Log In"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register",
                                                             style: .done,

@@ -29,7 +29,6 @@ class ConversationTableViewCell: UITableViewCell {
     private let userMessageLabel:UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 19, weight: .regular)
-        label.textColor = .green
         label.numberOfLines = 0
         return label
     }()

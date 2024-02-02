@@ -7,6 +7,7 @@
 
 import Foundation
 import MessageKit
+import CoreLocation
 import FirebaseDatabase
 
 final class DatabaseManager {
@@ -43,9 +44,9 @@ extension DatabaseManager {
     public func userExists(with email: String,
                            completion: @escaping((Bool) -> Void)) {
         
-        let safeEmail = email.replacingOccurrences(of: ".", with: ",")
+        let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
         database.child(safeEmail).observeSingleEvent(of: .value, with: { snapshot in
-            guard snapshot.value as? String != nil else {
+            guard snapshot.value as? [String: Any] != nil else {
                 completion(false)
                 return
             }
@@ -188,7 +189,7 @@ extension DatabaseManager {
                 if var conversations = snapshot.value as? [[String: Any]]{
                     //append
                     conversations.append(recipient_newConversationData)
-                    self?.database.child("\(otherUserEmail)/conversations").setValue([conversationId])
+                    self?.database.child("\(otherUserEmail)/conversations").setValue(conversations)
                 } else {
                     //create
                     self?.database.child("\(otherUserEmail)/conversations").setValue([recipient_newConversationData])
@@ -371,6 +372,16 @@ extension DatabaseManager {
                                       size: CGSize(width: 300, height: 300))
                     kind = .video(media)
                 }
+                else if type == "location" {
+                    let locationComponents = content.components(separatedBy: ",")
+                    guard let longitude = Double(locationComponents[0]) ,
+                          let latitude = Double(locationComponents[1])  else{
+                        return nil
+                    }
+                    let location = Location(location: CLLocation(latitude: latitude, longitude: longitude),
+                                            size: CGSize(width: 300, height: 300))
+                    kind = .location(location)
+                }
                 else {
                     kind = .text(content)
                 }
@@ -431,7 +442,9 @@ extension DatabaseManager {
                     message = targetUrlString
                 }
                 break
-            case .location(_):
+            case .location(let locationData):
+                let location = locationData.location
+                message = "\(location.coordinate.longitude),\(location.coordinate.latitude)"
                 break
             case .emoji(_):
                 break

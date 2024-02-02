@@ -29,7 +29,7 @@
         <scene sceneID="rzL-Sp-VAG">
             <objects>
                 <navigationController id="bBm-Nc-G0W" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="GyC-ol-uIR">
+                    <tabBarItem key="tabBarItem" title="Profile" image="person.circle" catalog="system" id="GyC-ol-uIR">
                         <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Rtn-YP-IQ2">
@@ -97,7 +97,7 @@
         <scene sceneID="d08-eW-lmS">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kMy-Xn-Q1G" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Chats" id="YgW-Ul-rMS"/>
+                    <tabBarItem key="tabBarItem" title="Chats" image="message" catalog="system" id="YgW-Ul-rMS"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="dlX-iE-CsO">
                         <rect key="frame" x="0.0" y="59" width="393" height="96"/>
@@ -114,6 +114,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="message" catalog="system" width="128" height="116"/>
+        <image name="person.circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
