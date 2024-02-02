@@ -11,7 +11,7 @@ import FBSDKLoginKit
 import JGProgressHUD
 import FirebaseAuth
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
     
     private let spinner = JGProgressHUD(style: .dark)
     

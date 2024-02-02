@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -88,6 +88,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource{
             guard let strongSelf = self else {
                 return
             }
+            UserDefaults.standard.setValue(nil, forKey: "email")
             do{
                 try FirebaseAuth.Auth.auth().signOut()
                 let vc = LoginViewController()

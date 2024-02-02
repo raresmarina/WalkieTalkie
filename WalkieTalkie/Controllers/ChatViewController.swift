@@ -14,60 +14,10 @@ import AVFoundation
 import AVKit
 import CoreLocation
 
-struct Message: MessageType{
-    public var sender: MessageKit.SenderType
-    public var messageId: String
-    public var sentDate: Date
-    public var kind: MessageKit.MessageKind // supports text,photo,video,location...
-}
-
-extension MessageKind {
-    var messageKindString: String{
-        switch self{
-            
-        case .text(_):
-            return "text"
-        case .attributedText(_):
-            return "attributed_text"
-        case .photo(_):
-            return "photo"
-        case .video(_):
-            return "video"
-        case .location(_):
-            return "location"
-        case .emoji(_):
-            return "emoji"
-        case .audio(_):
-            return "audio"
-        case .contact(_):
-            return "contact"
-        case .custom(_):
-            return "costum"
-        }
-    }
-}
-
-struct Sender: SenderType{
-    public var photoURL: String
-    public var senderId: String
-    public var displayName: String
-}
-
-struct Media: MediaItem {
-    var url: URL?
-    var image: UIImage?
-    var placeholderImage: UIImage
-    var size: CGSize
-    
-    
-}
-struct Location: LocationItem {
-    var location: CLLocation
-    var size: CGSize
-}
 
 
-class ChatViewController: MessagesViewController {
+
+final class ChatViewController: MessagesViewController {
     
     public static let dateFormatter: DateFormatter = {
        let formatter = DateFormatter()
@@ -78,7 +28,7 @@ class ChatViewController: MessagesViewController {
     }()
     
     public var isNewConversation = false
-    private let conversationId: String?
+    private var conversationId: String?
     public let otherUserEmail: String
     private var messages = [Message]()
     private var selfSender:Sender?  {
@@ -393,11 +343,14 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         //Send message
         if isNewConversation{
             //create conversation
-
             DatabaseManager.shared.createNewConversation(with: otherUserEmail, name:  self.title ?? "User", firstMessage: message, completion: {[weak self] success in
                 if success {
                     print("message sent")
                     self?.isNewConversation = false
+                    let newConversationId = "conversation_\(message.messageId)"
+                    self?.conversationId = newConversationId
+                    self?.listenForMessage(id: newConversationId, shouldScrollToBottom: true)
+                    
                 } else {
                     print("failed to send")
                     }
@@ -466,8 +419,15 @@ extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, Messag
         }
     }
     
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        let sender = message.sender
+        if sender.senderId == selfSender?.senderId {
+            return .link
+        }
         
-    
+        return .secondarySystemBackground
+    }
+        
 }
 
 extension ChatViewController: MessageCellDelegate{

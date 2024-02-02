@@ -10,9 +10,14 @@ import MessageKit
 import CoreLocation
 import FirebaseDatabase
 
+
+/// Manager object to read and write data to real time firebase database
 final class DatabaseManager {
     
-    static let shared = DatabaseManager()
+    /// Shared instance of class
+    public static let shared = DatabaseManager()
+    
+    private init() {}
     
     private let database = Database.database().reference()
     
@@ -40,7 +45,7 @@ extension DatabaseManager{
 //MARK: - Account
 
 extension DatabaseManager {
-    
+    /// Check if user exists for given email
     public func userExists(with email: String,
                            completion: @escaping((Bool) -> Void)) {
         
@@ -176,7 +181,7 @@ extension DatabaseManager {
             let recipient_newConversationData: [String: Any] = [
                 "id": conversationId,
                 "other_user_email": safeEmail,
-                "name": "Self",
+                "name": "Blair",
                 "latest_message": [
                     "date": dateString,
                     "message": message,

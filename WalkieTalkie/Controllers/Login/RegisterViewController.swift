@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import JGProgressHUD
 
-class RegisterViewController: UIViewController {
+final class RegisterViewController: UIViewController {
     
     private let spinner = JGProgressHUD(style: .dark)
     private let scrollView: UIScrollView = {
@@ -209,6 +209,8 @@ class RegisterViewController: UIViewController {
                     print("error creating user")
                     return
                 }
+                
+                UserDefaults.standard.setValue(email, forKey: "email")
                 
                 let chatUser = ChatAppUser(firstName: firstName, lastName: lastName, emailAddress: email)
                 
