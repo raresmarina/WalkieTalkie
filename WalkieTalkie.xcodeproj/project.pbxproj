@@ -202,6 +202,7 @@
 				4F0F1EE72B626DC0009647B1 /* Resources */,
 				0491ECF49C7017D76095B1E4 /* [CP] Embed Pods Frameworks */,
 				4A8F2C903EAD9C337CC4B046 /* [CP] Copy Pods Resources */,
+				4F492F002B6CFC7E009E51F1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -293,6 +294,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		4F492F002B6CFC7E009E51F1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n\n";
 		};
 		93E87D76F3750918DD6E36F8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
