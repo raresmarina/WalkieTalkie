@@ -62,8 +62,8 @@ Firebase Cloud Storage is utilized for storing multimedia content. Media files a
 ![WhatsApp Image 2024-02-02 at 14 08 48](https://github.com/raresmarina/WalkieTalkie/assets/72380710/7c057402-ecde-4b33-997f-91b91d7d66df)
 ![Register](https://github.com/raresmarina/WalkieTalkie/assets/72380710/2458f4fe-6835-4ad3-aeb6-5f38c04acf87)
 ![Login](https://github.com/raresmarina/WalkieTalkie/assets/72380710/3c93f464-d53b-4508-9358-63b3538db109)
-
 ![Conversations](https://github.com/raresmarina/WalkieTalkie/assets/72380710/b4fb53e5-29cd-4a6a-966e-f33337b8545d)
+
 ![Messages](https://github.com/raresmarina/WalkieTalkie/assets/72380710/536eae56-a311-4337-a3fb-61b66007a97a)
 ![Attachments](https://github.com/raresmarina/WalkieTalkie/assets/72380710/3f058b40-4129-45a4-a4a3-06714b3a895e)
-
+![WhatsApp Image 2024-02-05 at 22 34 22](https://github.com/raresmarina/WalkieTalkie/assets/72380710/9edc9321-316f-4b55-955c-097781261f5b)
